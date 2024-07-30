@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LLama, Palm AI, and AI Models Playground</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/styles/default.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script>
   <style>
     body {
-      background-color: #000000; /* Black background for the entire page */
-      color: #000000; /* White text color for readability */
+      background-color: #000;
+      color: #fff;
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
@@ -24,6 +25,7 @@
       color: #fff;
       margin-right: 10px;
       cursor: pointer;
+      text-decoration: none;
     }
     .search-bar {
       flex: 1;
@@ -39,54 +41,50 @@
       border-radius: 5px;
       margin-bottom: 10px;
       position: relative;
-      background-color: #444; /* Grey background for code blocks */
-      color: #000000; /* White text color */
+      background-color: #000;
+    }
+    .code-block {
+      color: #00ff00; /* Green color for code text */
+    }
+    .query-block {
+      color: #ffcc00; /* Yellow color for query text */
+    }
+    .url-block {
+      color: #00cccc; /* Cyan color for URL text */
+    }
+    .python-block {
+      color: #ff66cc; /* Pink color for Python code text */
+    }
+    .model-block {
+      color: #ff9933; /* Orange color for model code text */
     }
     .copy-button {
-      background-color: #666;
+      background-color: #444;
       color: #fff;
       border: none;
       padding: 10px;
       cursor: pointer;
       border-radius: 5px;
+      margin-bottom: 10px;
       position: absolute;
       top: 10px;
       right: 10px;
     }
     .copy-button:hover {
-      background-color: #777;
+      background-color: #555;
     }
     h1, h2 {
-      color: #ff6347; /* Tomato color for titles */
+      color: #ff0000; /* Red color for titles */
     }
     pre {
-      white-space: pre-wrap;       /* Since CSS 2.1 */
-      word-wrap: break-word;       /* Internet Explorer 5.5+ */
-    }
-    /* Highlight.js theme override for specific code elements */
-    .hljs-keyword {
-      color: #ffa07a; /* Light salmon */
-    }
-    .hljs-string {
-      color: #98fb98; /* Pale green */
-    }
-    .hljs-number {
-      color: #87ceeb; /* Sky blue */
-    }
-    .hljs-comment {
-      color: #b0c4de; /* Light steel blue */
-    }
-    .hljs-function {
-      color: #ffb6c1; /* Light pink */
-    }
-    .hljs-attr {
-      color: #add8e6; /* Light blue */
+      white-space: pre-wrap;
+      word-wrap: break-word;
     }
   </style>
 </head>
 <body>
   <div class="header">
-    <span><a class="back-button" href="dashboard.html" onclick="back">&#8592;</a></span>
+    <a class="back-button" href="dashboard.html" onclick="goBack()">&#8592;</a>
     <div class="search-bar">
       <input type="text" id="searchInput" placeholder="Search code..." onkeyup="searchCode()">
     </div>
@@ -137,6 +135,9 @@ else:
     # Print the error status code and message
     print(f"Error: {response.status_code}")
     print(response.text)
+
+# Install the required library
+# pip install requests
 </code></pre>
   </div>
 
@@ -214,89 +215,132 @@ except RequestException as e:
     <h2>AI Models Query</h2>
     <pre id="aiModelsQueryBlock"><code class="language-json">Query = "Hello"</code></pre>
   </div>
+
   <div class="url-block">
     <button class="copy-button" onclick="copyToClipboard('aiModelsUrlBlock')">Copy URL</button>
     <h2>AI Models API Request URL</h2>
-    <pre id="aiModelsUrlBlock"><code class="language-json">https://horrid-api.onrender.com/ai-models?query=Hello</code></pre>
+    <pre id="aiModelsUrlBlock"><code class="language-json">https://horrid-api.onrender.com/ai?query=Hello&model=1</code></pre>
+  </div>
+  <div class="model-block random-color">
+    <button class="copy-button" onclick="copyToClipboard('aiModelsQueryBlock')">Copy Query</button>
+    <h2>AI Models Query</h2>
+    <pre id="aiModelsQueryBlock"><code class="language-json">Query = "Hello"</code></pre>
   </div>
 
-  <div class="code-block">
+  <div class="url-block random-color">
+    <button class="copy-button" onclick="copyToClipboard('aiModelsUrlBlock')">Copy URL</button>
+    <h2>AI Models API Request URL</h2>
+    <pre id="aiModelsUrlBlock"><code class="language-json">https://horrid-api.onrender.com/ai?query=Hello&model=1</code></pre>
+  </div>
+
+  <div class="code-block random-color">
     <button class="copy-button" onclick="copyToClipboard('aiModelsCurlBlock')">Copy Curl Command</button>
     <h2>AI Models Curl Command</h2>
-    <pre id="aiModelsCurlBlock"><code class="language-bash">curl -X GET "https://horrid-api.onrender.com/ai-models?query=Hello" -H "accept: application/json"</code></pre>
+    <pre id="aiModelsCurlBlock"><code class="language-bash">curl -X POST "https://horrid-api.onrender.com/ai?query=Hello&model=1" -H "accept: application/json" -d ""</code></pre>
   </div>
 
-  <div class="python-block">
+  <div class="python-block random-color">
     <button class="copy-button" onclick="copyToClipboard('aiModelsPythonBlock')">Copy Python Code</button>
-    <h2>Python Code</h2>
+    <h2>Python Code for AI Models</h2>
     <pre id="aiModelsPythonBlock"><code class="language-python">import requests
+from requests.exceptions import ConnectionError, Timeout, RequestException
 
-# Define the API endpoint
-url = "https://horrid-api.onrender.com/ai-models"
-
-# Define the query parameter
-query = {"query": "Hello"}
+# Define the base URL and query parameters
+base_url = "https://horrid-api.onrender.com/ai"
+query = "Hello"
+model = 1
+full_url = f"{base_url}?query={query}&model={model}"
 
 # Set the headers
-headers = {"accept": "application/json"}
+headers = {"accept": "application/json", "Content-Type": "application/json"}
 
-# Make the GET request
-response = requests.get(url, headers=headers, params=query)
+# Define the role and query content
+role_content = "assistant content here"
+user_query = "user query here"
 
-# Check if the request was successful
-if response.status_code == 200:
+# Define the payload
+payload = {
+    "messages": [
+        {
+            "role": "assistant",
+            "content": role_content
+        },
+        {
+            "role": "user",
+            "content": user_query
+        }
+    ]
+}
+
+try:
+    # Make the POST request
+    response = requests.post(full_url, headers=headers, json=payload, timeout=10)
+    
+    # Check if the request was successful
+    response.raise_for_status()  # This will raise an HTTPError for bad responses
+
+    # Parse the JSON response
+    data = response.json()
+
     # Print the JSON response
-    print(response.json())
-else:
-    # Print the error status code and message
-    print(f"Error: {response.status_code}")
-    print(response.text)
+    print(data)
+
+except ConnectionError:
+    print("Failed to establish a connection to the server. Please check your internet connection and the API URL.")
+except Timeout:
+    print("The request timed out. Please try again later.")
+except RequestException as e:
+    print(f"An error occurred: {e}")
 </code></pre>
   </div>
 
   <textarea id="aiModelsApiResponse" rows="4" readonly>
 {
-  "response": "Greetings! How can I assist you with AI models today?"
+  "messages": "Success",
+  "response": "Hello! What can I do for you today? \n",
+  "status": "ok"
 }
   </textarea>
   <button class="copy-button" onclick="copyToClipboard('aiModelsApiResponse')">Copy Response</button>
 
   <script>
-    // Function to copy text to clipboard
     function copyToClipboard(elementId) {
-      var copyText = document.getElementById(elementId).innerText;
-      var textarea = document.createElement("textarea");
-      textarea.value = copyText;
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand("copy");
-      document.body.removeChild(textarea);
-      alert("Copied to clipboard!");
+      var copyText = document.getElementById(elementId);
+      var range = document.createRange();
+      range.selectNode(copyText);
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+      try {
+        document.execCommand('copy');
+        alert("Copied to clipboard!");
+      } catch (err) {
+        alert("Failed to copy text: " + err);
+      }
+      window.getSelection().removeAllRanges();
     }
 
-    // Function to implement search functionality
     function searchCode() {
-      var input = document.getElementById("searchInput");
-      var filter = input.value.toLowerCase();
-      var codeBlocks = document.getElementsByTagName("pre");
-
-      for (var i = 0; i < codeBlocks.length; i++) {
-        var codeBlock = codeBlocks[i];
-        var text = codeBlock.innerText.toLowerCase();
-        if (text.indexOf(filter) > -1) {
-          codeBlock.parentElement.style.display = "";
+      var input, filter, pre, code, i, txtValue;
+      input = document.getElementById('searchInput');
+      filter = input.value.toUpperCase();
+      pre = document.getElementsByTagName('pre');
+      
+      for (i = 0; i < pre.length; i++) {
+        code = pre[i].getElementsByTagName('code')[0];
+        txtValue = code.textContent || code.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          pre[i].style.display = "";
         } else {
-          codeBlock.parentElement.style.display = "none";
+          pre[i].style.display = "none";
         }
       }
     }
 
-    // Initialize syntax highlighting
-    document.addEventListener("DOMContentLoaded", (event) => {
-      document.querySelectorAll("pre code").forEach((block) => {
-        hljs.highlightBlock(block);
-      });
-    });
+    function goBack() {
+      window.history.back();
+    }
+
+    hljs.highlightAll();
   </script>
 </body>
-  </html>
+</html>
