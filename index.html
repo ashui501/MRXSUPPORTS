@@ -82,7 +82,7 @@
         <ul>
             <li><button><i class="fas fa-tachometer-alt"></i> Dashboard</button></li>
             <li><button><i class="fas fa-chart-line"></i> Reports</button></li>
-            <li><button><i class="fas fa-cogs"></i> Settings</button></li>
+            <li><button id="report"><i class="fas fa-cogs"></i> Settings</button></li>
             <li><button id="apiInfoButton"><i class="fas fa-info-circle"></i> API Info</button></li>
         </ul>
     </div>
@@ -106,6 +106,14 @@
         // Handle button click to load content
         document.getElementById("apiInfoButton").onclick = function() {
             fetch('codes.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("dynamicContent").innerHTML = data;
+                })
+                .catch(error => console.error('Error loading content:', error));
+        }
+        document.getElementById("report").onclick = function() {
+            fetch('Reports.html')
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById("dynamicContent").innerHTML = data;
