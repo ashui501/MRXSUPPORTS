@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Termux BeEF Installer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #ff6347, #ffd700);
+            color: #fff;
+            display: flex;
+        }
+
+        .dashboard {
+    width: 250px;
+    background-color: rgba(51, 51, 51, 0.5); /* Transparent background */
+    height: 150vh;
+    position: fixed;
+    padding: 5px;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px); /* Add blur effect */
+}
+
+        .dashboard h2 {
+            color: #fff;
+            text-align: center;
+        }
+
+        .dashboard ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .dashboard ul li {
+            margin: 20px 0;
+        }
+
+        .dashboard ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            display: block;
+            background-color: #444;
+            border-radius: 4px;
+        }
+
+        .dashboard ul li a:hover {
+            background-color: #666;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Remove Download Button */
+        .dashboard .home-button, .dashboard .mrz-button, .dashboard .termux-button {
+            background: linear-gradient(135deg, blue, red, gold);
+            padding: 10px;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+
+        .dashboard .home-button:hover, .dashboard .mrz-button:hover, .dashboard .termux-button:hover{
+            background: linear-gradient(135deg, darkblue, darkred, goldenrod);
+        }
+
+        /* Hamburger Icon */
+        .hamburger {
+            display: none;
+            font-size: 30px;
+            cursor: pointer;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            z-index: 1000;
+        }
+
+        .main-content {
+            margin-left: 270px;
+            padding: 30px;
+            flex: 1;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            text-align: center;
+            color: #f0e68c;
+        }
+
+        h2, h4 {
+            color: red;
+            margin-bottom: 10px;
+        }
+
+        .payload {
+            background-color: #222;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+            position: relative;
+            color: white;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ffcc00;
+            color: black;
+            border: none;
+            padding: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 6px;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background-color: #cc9900;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transform: scale(1.05);
+        }
+
+        .tools-section {
+            margin: 60px 0;
+            padding: 30px;
+            background: linear-gradient(135deg, blue, red, gold);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .tools-section button {
+            padding: 12px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            cursor: pointer;
+            margin: 10px;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .tools-section button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        /* Mobile View */
+        @media (max-width: 768px) {
+            .dashboard {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            body {
+                flex-direction: column;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .dashboard {
+                display: none;
+            }
+        }
+        .download-button {
+            background-color: #6200ea; /* Vibrant Purple */
+            border: none;
+            color: white;
+            padding: 14px 28px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 8px 4px;
+            cursor: pointer;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .download-button:hover {
+            background-color: #3700b3; /* Darker Purple on Hover */
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        }
+        .disclaimer {
+            background-color: #f9f9f9;
+            border-left: 6px solid #ff9800;
+            margin: 20px;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            color: #333;
+            line-height: 1.5;
+        }
+        .disclaimer strong {
+            color: #ff5722;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hamburger Icon for Mobile -->
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+    <!-- Dashboard Section -->
+    <div class="dashboard" id="dashboard">
+        <h2>Dashboard</h2>
+        <ul>
+            <li><a href="#" class="termux-button">Termux Tools</a></li>
+            <li><a href="index.html" class="home-button">Home</a></li>
+            <li><a href="mrz_bots.html" class="mrz-button">MRZ Bots Details</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content Section -->
+    <div class="main-content">
+        <h1>Termux BeEF Installer Guide</h1>
+
+         <div class="disclaimer">
+       <h1><i><strong>DICLAIMER</i>:</strong></h1> <p> The content provided on this       website is for educational purposes only. We do not promote, support, or endorse any illegal            activities, including hacking or unauthorized access to computer systems. All                 information shared here is intended to help users understand cybersecurity and              ethicalhacking principles.</p>
+        <br><br>
+       <p> By using this website, you acknowledge that any misuse of the information or involvement in illegal activities is solely at your own risk. We take no responsibility for any illegal actions taken by users. Please be mindful of the laws in your region and always practice ethical and responsible behavior online.</p>
+    </div>
+
+        <!-- First Command Section -->
+        <h2>Command 1: Update and Upgrade</h2>
+        <p>This command updates and upgrades all existing packages.</p>
+        <div class="payload command-text-1">
+            <button class="copy-btn" onclick="copyToClipboard(1)">
+                <i class="copy-btn-icon">📋</i></button>
+            <pre id="command-text-1">pkg update && upgrade -y</pre>
+        </div>
+
+        <!-- Second Command Section -->
+        <h2>Command 2: Termux Storage Setup</h2>
+        <p>This command allows Termux to access your device's internal and external storage.</p>
+        <div class="payload command-text-2">
+            <button class="copy-btn" onclick="copyToClipboard(2)">
+                <i class="copy-btn-icon">📋</i></button>
+            <pre id="command-text-2">termux-setup-storage</pre>
+        </div>
+
+        <!-- Third Command Section -->
+        <h2>Command 3: List Files</h2>
+        <p>Displays the contents of the current directory.</p>
+        <div class="payload command-text-3">
+            <button class="copy-btn" onclick="copyToClipboard(3)">
+                <i class="copy-btn-icon">📋</i></button>
+            <pre id="command-text-3">ls</pre>
+        </div>
+
+        <!-- Fourth Command Section -->
+        <h2>Command 4: Copy Installer.sh to Home Directory</h2>
+        <p>This command copies the installer script to the home directory. Replace <code>&lt;your_installer.sh_file_path&gt;</code> with the actual path.</p>
+        <div class="payload command-text-4">
+            <button class="copy-btn" onclick="copyToClipboard(4)">
+                <i class="copy-btn-icon">📋</i></button>
+            <pre id="command-text-4">cp &lt;your_installer.sh_file_path&gt; $HOME/</pre>
+        </div>
+      
+      <a href="http://ytsubme.io/NO2jm" download>
+        <button class="download-button">Download Installer.sh</button>
+    </a>
+        <!-- Example Section -->
+        <h2>Example</h2>
+        <a href="https://graph.org/file/42f2255e91a4635cd33fb.jpg">
+            <img src="https://graph.org/file/42f2255e91a4635cd33fb.jpg" alt="Example Image" width="300" height="200">
+        </a>
+
+        <!-- Fifth Command Section -->
+        <h2>Command 5: Run Installer</h2>
+        <p>This command runs the <code>Installer.sh</code> script.</p>
+        <div class="payload command-text-5">
+            <button class="copy-btn" onclick="copyToClipboard(5)">
+                <i class="copy-btn-icon">📋</i></button>
+            <pre id="command-text-5">bash Installer.sh</pre>
+        </div>
+
+        <!-- Sixth Command Section -->
+        <h2>Command 6: Change Directory to BeEF</h2>
+        <p>This command navigates to the BeEF directory after installation.</p>
+        <div class="payload command-text-6">
+            <button class="copy-btn" onclick="copyToClipboard(6)">
+                <i class="copy-btn-icon">📋</i></button>
+            <pre id="command-text-6">cd beef</pre>
+        </div>
+
+        <!-- Seventh Command Section -->
+        <h2>Command 7: Install Dependencies using Bundler</h2>
+        <p>This command installs the required Ruby gems using Bundler. Ensure that you have <code>bundler</code> installed first.</p>
+        <div class="payload command-text-7">
+            <button class="copy-btn" onclick="copyToClipboard(7)">
+                <i class="copy-btn-icon">📋</i></button>
+            <pre id="command-text-7">bundle install</pre>
+        </div>
+
+        <!-- Eighth Command Section -->
+        <h2>Command 8: Start BeEF Framework</h2>
+        <p>This command starts the BeEF framework.</p>
+        <div class="payload command-text-8">
+            <button class="copy-btn" onclick="copyToClipboard(8)">
+                <i class="copy-btn-icon">📋</i></button>
+            <pre id="command-text-8">./beef</pre>
+        </div>
+
+        <!-- Ninth Command Section -->
+        <h2>Command 9: Access BeEF Web Interface</h2>
+        <p>After starting BeEF, you can access the web interface using the following URL. Make sure BeEF is running before you visit this URL:</p>
+        <div class="payload command-text-9">
+            <button class="copy-btn" onclick="copyToClipboard(9)">
+                <i class="copy-btn-icon">📋</i></button>
+            <pre id="command-text-9">http://localhost:3000/ui/panel</pre>
+        </div>
+    </div>
+
+    <!-- JavaScript for Clipboard Copy -->
+    <script>
+        function copyToClipboard(id) {
+            var text = document.getElementById('command-text-' + id).innerText;
+            var textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert('Copied to clipboard!');
+        }
+
+        function toggleMenu() {
+            var dashboard = document.getElementById('dashboard');
+            if (dashboard.style.display === 'block') {
+                dashboard.style.display = 'none';
+            } else {
+                dashboard.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

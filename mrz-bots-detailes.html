@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MRZ BOTS TEAM - Leading Telegram Bots & API Development">
+    <title>MRZ BOTS TEAM</title>
+    <!-- Font Awesome Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: rgba(0, 0, 0, 0.8); /* Black background with opacity for blur effect */
+            color: #fff; /* Light text */
+            margin: 0;
+            padding: 0;
+            backdrop-filter: blur(10px); /* Background blur effect */
+            position: relative;
+        }
+        header {
+            background-color: rgba(34, 34, 34, 0.9); /* Dark grey with opacity */
+            color: #fff;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            color: #ccc; /* Light grey for main content */
+        }
+        h1, h2, h3 {
+            color: #f8f8f8; /* Lighter color for headings */
+        }
+        .bot-list, .api-section, .github-section {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #333; /* Subtle divider */
+            padding-bottom: 1.5rem;
+        }
+        a {
+            color: #1e90ff; /* Bright blue for links */
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+            color: #00bfff; /* Hover effect for links */
+        }
+        .icon {
+            margin-right: 0.5rem;
+        }
+        .button {
+            background: linear-gradient(45deg, #ffeb3b, #8bc34a, #03a9f4); /* Yellow-green-blue gradient */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Shadow for buttons */
+            margin-right: 0.5rem; /* Small gap between buttons */
+        }
+        .button-red {
+            background: red; /* Red button */
+            color: white;
+            border: 2px solid #fff; /* White border */
+        }
+        .button-red:hover {
+            background: darkred; /* Darker red on hover */
+            border: 2px solid #fff; /* Maintain border on hover */
+        }
+        .button-white {
+            background: white; /* White button */
+            color: black;
+            border: 2px solid red; /* Red border */
+        }
+        .button-white:hover {
+            background: lightgray; /* Light gray on hover */
+            border: 2px solid red; /* Maintain border on hover */
+        }
+        .button-green {
+            background: linear-gradient(45deg, #4caf50, #8bc34a); /* Green gradient */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Shadow for buttons */
+            margin-right: 0.5rem; /* Small gap between buttons */
+        }
+        .button-green:hover {
+            background: #388e3c; /* Darker green on hover */
+        }
+        .back-btn {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: #ff5722; /* Orange-red background */
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            transition: background 0.3s ease;
+        }
+        .read-more-btn:hover {
+            background: #e64a19; /* Darker orange-red on hover */
+        }
+        .more-content {
+            display: none; /* Hide content by default */
+            margin-top: 1rem;
+        }
+        footer {
+            background-color: rgba(34, 34, 34, 0.9);
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            border-top: 1px solid #333;
+        }
+        .container p, .container a {
+            color: #ddd; /* Slightly lighter grey for paragraph and links */
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Welcome to MRZ BOTS TEAM</h1>
+    <p>Leading the development of powerful Telegram bots and APIs.</p>
+</header>
+
+<!-- Back Button with Icon -->
+<button class="back-btn" onclick="loadDashboard()">
+    <i class="fas fa-arrow-left icon"></i>Back
+</button>
+
+<div class="container">
+    <section class="intro">
+        <h2>About MRZ BOTS TEAM</h2>
+        <p>The <strong>MRZ BOTS TEAM</strong> is a group of skilled developers focused on creating innovative Telegram bots that serve over 10 active users. We provide support through our GitHub repositories, Telegram groups, and channels, and our YouTube channel.</p>
+        <p id="moreContent" class="more-content">If you’re looking to join our team or need support, check out the links below:</p>
+        <p>
+            <a href="https://t.me/Mrz_bots" target="_blank" class="button button-red">
+                <i class="fas fa-paper-plane icon"></i>Join our Support Group
+            </a>
+            <a href="https://t.me/XBOTSUPPORTS" target="_blank" class="button button-white">
+                <i class="fas fa-bullhorn icon"></i>Channel Updates
+            </a>
+            <a href="https://youtube.com/@mrzbots?si=VKS1DgBXiZd35xio" target="_blank" class="button button-red">
+                <i class="fab fa-youtube icon"></i>Visit our YouTube Channel
+            </a>
+        </p>
+    </section>
+
+    <section class="bot-list">
+        <h2>MRZ BOTS List</h2>
+        <h3>LUFFY BOT</h3>
+        <p>This bot is an AI-driven powerhouse offering features like AI chat, image upscaling, OpenAI GPT, Gemini integrations, and more. It is designed for group management and offers chatbot functionality with daily updates.</p>
+        <p><a href="https://t.me/autofilterclonebot" target="_blank" class="button button-red">
+            <i class="fas fa-robot icon"></i>Luffy Bot Username
+        </a></p>
+
+        <h3>MALLUARJUN BOT</h3>
+        <p>MalluArjun is a fully AI-powered bot that offers a wide range of features, including auto-filtering, image upscaling, wiki search, Google search, Ubuntu search, and GPT-based responses. It also supports chatbots, daily updates, and even Instagram downloads, making it an essential tool for managing groups and more.</p>
+        <p><a href="https://t.me/mallu_arujin_autofitermallu_bot" target="_blank" class="button button-white">
+            <i class="fas fa-robot icon"></i>MalluArjun Bot Username
+        </a></p>
+    </section>
+
+    <section class="api-section">
+        <h2>MRZ BOTS API</h2>
+        <p>The MRZ Bots API, named <strong>Horrid API</strong>, is a powerful and unique tool used by over 1,000 members. It offers seamless integration and has proven to be error-free in delivering top-notch services for various bots and applications.</p>
+        <p><a href="https://horrid-api-yihb.onrender.com/docs" target="_blank" class="button button-red">
+            <i class="fas fa-code icon"></i>Horrid API Documentation
+        </a></p>
+    </section>
+
+    <section class="github-section">
+        <h2>MRZ BOTS GitHub Repositories</h2>
+        <p>Explore our GitHub repositories for MRZ BOTS. The repositories include various projects, such as the AutoFilter Bot and other advanced bots. You can contribute, provide feedback, and stay updated with our latest developments.</p>
+        <p>
+            <a href="https://github.com/Mrzbots" target="_blank" class="button button-green">
+                <i class="fab fa-github icon"></i>MRZ BOTS GitHub
+            </a>
+        </p>
+    </section>
+</div>
+
+<footer>
+    <p>&copy; 2024 MRZ BOTS TEAM. All rights reserved.</p>
+</footer>
+
+<script>
+    function loadDashboard() {
+        window.location.href = "dashboard.html"; // Redirect to dashboard.html when button is clicked
+    }
+</script>
+
+</body>
+</html>
